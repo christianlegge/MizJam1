@@ -90,12 +90,12 @@ public class DiceController : MonoBehaviour
 		var mf = GetComponent<MeshFilter>();
 		mesh = mf.mesh;
 
-		SetFace(20, 2, 0);
-		SetFace(21, 2, 1);
-		SetFace(22, 2, 2);
-		SetFace(23, 2, 3);
-		SetFace(24, 2, 4);
-		SetFace(25, 2, 5);
+		SetFace(32, 15, 0);
+		SetFace(32, 15, 1);
+		SetFace(32, 15, 2);
+		SetFace(41, 10, 3);
+		SetFace(37, 18, 4);
+		SetFace(37, 18, 5);
 
 	}
 
