@@ -23,7 +23,7 @@ public class CupController : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, Mathf.Infinity, tableLayer))
 			{
-				//body.AddForce(((hit.point + Vector3.up * 2) - transform.position) * 100);
+				//body.AddForce(((hit.point + Vector3.up * 2) - transform.position) * 600);
 				body.velocity = (((hit.point + Vector3.up * 2) - transform.position) * 100) * Time.fixedDeltaTime * 7;
 				body.MoveRotation(Quaternion.Euler(-90, 0, 0));
 				body.angularVelocity = Vector3.zero;
