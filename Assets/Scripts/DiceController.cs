@@ -35,11 +35,9 @@ public class DiceController : MonoBehaviour
 		{
 			if (rollFrameCount % framesPerRoll == 0)
 			{
-				Debug.Log("rolled");
 				foreach (GameObject die in dice)
 				{
-					die.transform.rotation = Quaternion.Euler(Random.onUnitSphere * 360);
-					die.transform.position = transform.position;
+					die.GetComponent<DieController>().Roll(transform.position);
 				}
 			}
 			rollFrameCount--;
