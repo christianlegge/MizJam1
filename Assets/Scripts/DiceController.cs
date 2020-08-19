@@ -38,6 +38,7 @@ public class DiceController : MonoBehaviour
 				Debug.Log("rolled");
 				foreach (GameObject die in dice)
 				{
+					die.transform.rotation = Quaternion.Euler(Random.onUnitSphere * 360);
 					die.transform.position = transform.position;
 				}
 			}
