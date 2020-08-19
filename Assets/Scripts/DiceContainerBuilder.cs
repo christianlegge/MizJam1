@@ -37,8 +37,8 @@ public class DiceContainerBuilder : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        
-    }
+
+	}
 
 	private void OnDrawGizmosSelected ()
 	{

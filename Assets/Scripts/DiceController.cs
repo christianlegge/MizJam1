@@ -7,6 +7,7 @@ public class DiceController : MonoBehaviour
 	public GameObject[] dice;
 	public int framesPerRoll;
 	public int rolls;
+	public LayerMask dieLayer;
 	int rollFrameCount = 0;
 
     // Start is called before the first frame update
@@ -15,8 +16,20 @@ public class DiceController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			RaycastHit hit;
+			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, dieLayer))
+			{
+				hit.transform.gameObject.GetComponent<DieController>().Hold();
+			}
+		}
+	}
+
+	// Update is called once per frame
+	void FixedUpdate()
     {
         if (rollFrameCount > 0)
 		{

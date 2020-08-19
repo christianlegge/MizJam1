@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2283211343788985043}
   - component: {fileID: 4577934640933895704}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8457809131126590543}
   - component: {fileID: 8457809131126590540}
   - component: {fileID: 8457809131126590539}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Die
   m_TagString: Untagged
   m_Icon: {fileID: 0}

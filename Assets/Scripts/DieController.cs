@@ -7,7 +7,7 @@ public class DieController : MonoBehaviour
 {
 	public float upForce;
 	public float spinForce;
-
+	
 
 	int tilesheetW = 48;
 	int tilesheetH = 22;
@@ -99,6 +99,11 @@ public class DieController : MonoBehaviour
 
 	}
 
+	private void Update()
+	{
+
+	}
+
 	void OnMouseDown()
 	{
 		body.AddForce(Vector3.up * Random.Range(upForce / 2, upForce * 1.5f));
@@ -106,8 +111,8 @@ public class DieController : MonoBehaviour
 		body.AddTorque(new Vector3(torque.x, Random.Range(-0.5f, 0.5f), torque.y) * Random.Range(spinForce/2, spinForce * 1.5f));
 	}
 
-	public void Roll(Vector3 pos)
+	public void Hold()
 	{
-		body.AddForce((pos - transform.position) * 100);
+		Debug.Log("hold");
 	}
 }
