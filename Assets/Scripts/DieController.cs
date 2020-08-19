@@ -12,6 +12,8 @@ public class DieController : MonoBehaviour
 
 	Color[] faceColors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan };
 	bool rolled = false;
+	bool stopped = false;
+	bool held = false;
 	Light light;
 	int tilesheetW = 48;
 	int tilesheetH = 22;
@@ -117,20 +119,14 @@ public class DieController : MonoBehaviour
 
 	private void Update()
 	{
-		if (rolled && body.velocity == Vector3.zero && body.angularVelocity == Vector3.zero)
+		if (rolled && !stopped && body.velocity == Vector3.zero && body.angularVelocity == Vector3.zero)
 		{
 			Color c = faceColors[GetUpwardFace()];
 			material.SetColor("FaceColor", c);
 			renderer.material = material;
 			light.color = c;
+			stopped = true;
 		}
-	}
-
-	void OnMouseDown()
-	{
-		body.AddForce(Vector3.up * UnityEngine.Random.Range(upForce / 2, upForce * 1.5f));
-		Vector2 torque = UnityEngine.Random.insideUnitCircle.normalized;
-		body.AddTorque(new Vector3(torque.x, UnityEngine.Random.Range(-0.5f, 0.5f), torque.y) * UnityEngine.Random.Range(spinForce/2, spinForce * 1.5f));
 	}
 
 	public void Roll(Vector3 pos)
@@ -141,11 +137,20 @@ public class DieController : MonoBehaviour
 		transform.rotation = Quaternion.Euler(UnityEngine.Random.onUnitSphere * 360);
 		transform.position = pos;
 		rolled = true;
+		stopped = false;
+		held = false;
 	}
 
-	public void Hold()
+	public bool Hold(Vector3 pos)
 	{
+		if (held || !stopped || !rolled)
+		{
+			return false;
+		}
+		transform.position = new Vector3(pos.x, transform.position.y, pos.z);
 		Debug.Log("hold");
+		held = true;
+		return true;
 	}
 
 	private void OnDrawGizmos()

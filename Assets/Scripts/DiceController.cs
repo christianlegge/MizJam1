@@ -8,6 +8,8 @@ public class DiceController : MonoBehaviour
 	public int framesPerRoll;
 	public int rolls;
 	public LayerMask dieLayer;
+	public GameObject[] holdBoxes;
+	int heldDice = 0;
 	int rollFrameCount = 0;
 
     // Start is called before the first frame update
@@ -23,7 +25,10 @@ public class DiceController : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, dieLayer))
 			{
-				hit.transform.gameObject.GetComponent<DieController>().Hold();
+				if (hit.transform.gameObject.GetComponent<DieController>().Hold(holdBoxes[heldDice].transform.position))
+				{
+					heldDice++;
+				}
 			}
 		}
 	}
@@ -46,6 +51,7 @@ public class DiceController : MonoBehaviour
 
 	public void RollDice()
 	{
+		heldDice = 0;
 		rollFrameCount = rolls * framesPerRoll;
 	}
 }
