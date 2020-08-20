@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-	public Image healthBar;
+	public HealthBarController healthBar;
+	public int maxHealth;
 	int health;
-	int maxHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +18,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		
     }
 }

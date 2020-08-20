@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+enum Face
+{
+	Sword,
+	Shield,
+	Potion
+}
+
 public class DiceController : MonoBehaviour
 {
 	public DieController[] dice;
@@ -9,13 +16,18 @@ public class DiceController : MonoBehaviour
 	public int rolls;
 	public LayerMask dieLayer;
 	public GameObject[] holdBoxes;
-	int heldDice = 0;
+	List<Face> heldDice;
+	int finishedDice = 0;
 	int rollFrameCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+		heldDice = new List<Face>();
+		foreach (DieController die in dice)
+		{
+			die.diceController = this;
+		}
     }
 
 	private void Update()
@@ -25,9 +37,10 @@ public class DiceController : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, dieLayer))
 			{
-				if (hit.transform.gameObject.GetComponent<DieController>().Hold(holdBoxes[heldDice].transform.position))
+				DieController dc = hit.transform.gameObject.GetComponent<DieController>();
+				if (dc.Hold(holdBoxes[heldDice.Count].transform.position))
 				{
-					heldDice++;
+					heldDice.Add(Face.Sword);
 				}
 			}
 		}
@@ -55,5 +68,21 @@ public class DiceController : MonoBehaviour
 	public void RollDice()
 	{
 		rollFrameCount = rolls * framesPerRoll;
+	}
+
+	public void TryEndTurn()
+	{
+		finishedDice++;
+		if (finishedDice == 5)
+		{
+			finishedDice = 0;
+			for (int i = 0; i < 5; i++)
+			{
+				dice[i].Reset();
+				dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
+
+			}
+			heldDice.Clear();
+		}
 	}
 }

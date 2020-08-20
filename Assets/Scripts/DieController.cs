@@ -10,6 +10,9 @@ public class DieController : MonoBehaviour
 {
 	public float upForce;
 	public float spinForce;
+
+	[HideInInspector]
+	public DiceController diceController;
 	float sinkStop = 0.01f;
 
 	public bool Held
@@ -131,7 +134,7 @@ public class DieController : MonoBehaviour
 
 	private void Update()
 	{
-		if (rolled && !stopped && body.velocity == Vector3.zero && body.angularVelocity == Vector3.zero)
+		if (rolled && !stopped && !held && body.velocity == Vector3.zero && body.angularVelocity == Vector3.zero)
 		{
 			Color c = faceColors[GetUpwardFace()];
 			material.SetColor("FaceColor", c);
@@ -162,6 +165,7 @@ public class DieController : MonoBehaviour
 				if (transform.position.y <= sinkStop)
 				{
 					transform.position = new Vector3(holdPosition.x, sinkStop, holdPosition.z);
+					diceController.TryEndTurn();
 				}
 			}
 		}
@@ -169,17 +173,10 @@ public class DieController : MonoBehaviour
 
 	public void Roll(Vector3 pos)
 	{
-		material.SetColor("FaceColor", Color.white);
-		renderer.material = material;
-		light.color = Color.white;
+		Reset();
+		rolled = true;
 		transform.rotation = Quaternion.Euler(UnityEngine.Random.onUnitSphere * 360);
 		transform.position = pos;
-		body.detectCollisions = true;
-		body.useGravity = true;
-		rolled = true;
-		stopped = false;
-		held = false;
-		sink = false;
 	}
 
 	public bool Hold(Vector3 pos)
@@ -188,8 +185,6 @@ public class DieController : MonoBehaviour
 		{
 			return false;
 		}
-		//transform.position = new Vector3(pos.x, transform.position.y, pos.z);
-		Debug.Log("hold");
 		held = true;
 		upwardFace = GetUpwardFace();
 		holdPosition = new Vector3(pos.x, transform.position.y, pos.z);
@@ -210,5 +205,19 @@ public class DieController : MonoBehaviour
 		var angles = directions.Select(x => Mathf.Abs(Vector3.Angle(Vector3.up, x))).ToArray();
 		return Array.IndexOf(angles, angles.Min());
 
+	}
+
+	public void Reset()
+	{
+		Debug.Log("resetting");
+		material.SetColor("FaceColor", Color.white);
+		renderer.material = material;
+		light.color = Color.white;
+		body.detectCollisions = true;
+		body.useGravity = true;
+		rolled = false;
+		stopped = false;
+		held = false;
+		sink = false;
 	}
 }
