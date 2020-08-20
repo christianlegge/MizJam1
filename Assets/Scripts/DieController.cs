@@ -10,12 +10,14 @@ public class DieController : MonoBehaviour
 {
 	public float upForce;
 	public float spinForce;
+	float sinkStop = 0.01f;
 
 	Color[] faceColors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan };
 	Quaternion[] faceRotations = { Quaternion.Euler(0, 0, 90), Quaternion.Euler(180, 0, 90), Quaternion.Euler(0, 180, 0), Quaternion.Euler(180, 90, 0), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(90, 0, 0) }; 
 	bool rolled = false;
 	bool stopped = false;
 	bool held = false;
+	bool sink = false;
 	Light light;
 	int tilesheetW = 48;
 	int tilesheetH = 22;
@@ -133,11 +135,28 @@ public class DieController : MonoBehaviour
 		}
 		if (held)
 		{
-			transform.position = Vector3.MoveTowards(transform.position, holdPosition, (holdPosition - transform.position).magnitude * Time.deltaTime * 10);
 			transform.localRotation = Quaternion.RotateTowards(transform.localRotation, faceRotations[upwardFace], Quaternion.Angle(transform.localRotation, faceRotations[upwardFace]) * Time.deltaTime * 5);
-			if (transform.position == holdPosition)
+			if (!sink)
 			{
-
+				transform.position = Vector3.MoveTowards(transform.position, holdPosition, (holdPosition - transform.position).magnitude * Time.deltaTime * 10);
+				if ((transform.position - holdPosition).magnitude < 0.01f)
+				{
+					sink = true;
+				}
+			}
+		}
+		if (sink)
+		{
+			if (transform.position.y > sinkStop)
+			{
+				Vector2 shake = UnityEngine.Random.insideUnitCircle;
+				shake.Normalize();
+				shake *= 0.05f;
+				transform.position = new Vector3(holdPosition.x + shake.x, transform.position.y - Time.deltaTime, holdPosition.z + shake.y);
+				if (transform.position.y <= sinkStop)
+				{
+					transform.position = new Vector3(holdPosition.x, sinkStop, holdPosition.z);
+				}
 			}
 		}
 	}
@@ -154,6 +173,7 @@ public class DieController : MonoBehaviour
 		rolled = true;
 		stopped = false;
 		held = false;
+		sink = false;
 	}
 
 	public bool Hold(Vector3 pos)
