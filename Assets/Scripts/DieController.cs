@@ -12,6 +12,7 @@ public class DieController : MonoBehaviour
 	public float spinForce;
 
 	Color[] faceColors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan };
+	Quaternion[] faceRotations = { Quaternion.Euler(0, 0, 90), Quaternion.Euler(180, 0, 90), Quaternion.Euler(0, 180, 0), Quaternion.Euler(180, 90, 0), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(90, 0, 0) }; 
 	bool rolled = false;
 	bool stopped = false;
 	bool held = false;
@@ -22,6 +23,7 @@ public class DieController : MonoBehaviour
 	Rigidbody body;
 	int count = 0;
 	int tile = 0;
+	int upwardFace;
 	Renderer renderer;
 	Material material;
 	Vector3 holdPosition;
@@ -110,7 +112,7 @@ public class DieController : MonoBehaviour
 		SetFace(37, 18, 4);
 		SetFace(37, 18, 5);*/
 
-		SetFace(35, 4, 0);
+		SetFace(41, 4, 0);
 		SetFace(36, 4, 1);
 		SetFace(37, 4, 2);
 		SetFace(38, 4, 3);
@@ -132,6 +134,11 @@ public class DieController : MonoBehaviour
 		if (held)
 		{
 			transform.position = Vector3.MoveTowards(transform.position, holdPosition, (holdPosition - transform.position).magnitude * Time.deltaTime * 10);
+			transform.localRotation = Quaternion.RotateTowards(transform.localRotation, faceRotations[upwardFace], Quaternion.Angle(transform.localRotation, faceRotations[upwardFace]) * Time.deltaTime * 5);
+			if (transform.position == holdPosition)
+			{
+
+			}
 		}
 	}
 
@@ -158,6 +165,7 @@ public class DieController : MonoBehaviour
 		//transform.position = new Vector3(pos.x, transform.position.y, pos.z);
 		Debug.Log("hold");
 		held = true;
+		upwardFace = GetUpwardFace();
 		holdPosition = new Vector3(pos.x, transform.position.y, pos.z);
 		body.detectCollisions = false;
 		body.useGravity = false;
