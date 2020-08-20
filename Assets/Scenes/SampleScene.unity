@@ -1021,6 +1021,12 @@ MonoBehaviour:
   dieLayer:
     serializedVersion: 2
     m_Bits: 512
+  holdBoxes:
+  - {fileID: 1329421165}
+  - {fileID: 859776831}
+  - {fileID: 1390702948}
+  - {fileID: 2034244374}
+  - {fileID: 1436853940}
 --- !u!4 &735343282
 Transform:
   m_ObjectHideFlags: 0

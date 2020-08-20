@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class DieController : MonoBehaviour
@@ -23,6 +24,7 @@ public class DieController : MonoBehaviour
 	int tile = 0;
 	Renderer renderer;
 	Material material;
+	Vector3 holdPosition;
 
 	float x;
 	float z;
@@ -127,6 +129,10 @@ public class DieController : MonoBehaviour
 			light.color = c;
 			stopped = true;
 		}
+		if (held)
+		{
+			transform.position = Vector3.MoveTowards(transform.position, holdPosition, (holdPosition - transform.position).magnitude * Time.deltaTime * 10);
+		}
 	}
 
 	public void Roll(Vector3 pos)
@@ -136,6 +142,8 @@ public class DieController : MonoBehaviour
 		light.color = Color.white;
 		transform.rotation = Quaternion.Euler(UnityEngine.Random.onUnitSphere * 360);
 		transform.position = pos;
+		body.detectCollisions = true;
+		body.useGravity = true;
 		rolled = true;
 		stopped = false;
 		held = false;
@@ -147,9 +155,12 @@ public class DieController : MonoBehaviour
 		{
 			return false;
 		}
-		transform.position = new Vector3(pos.x, transform.position.y, pos.z);
+		//transform.position = new Vector3(pos.x, transform.position.y, pos.z);
 		Debug.Log("hold");
 		held = true;
+		holdPosition = new Vector3(pos.x, transform.position.y, pos.z);
+		body.detectCollisions = false;
+		body.useGravity = false;
 		return true;
 	}
 
