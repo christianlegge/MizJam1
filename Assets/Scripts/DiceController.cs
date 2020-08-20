@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DiceController : MonoBehaviour
 {
-	public GameObject[] dice;
+	public DieController[] dice;
 	public int framesPerRoll;
 	public int rolls;
 	public LayerMask dieLayer;
@@ -40,9 +40,12 @@ public class DiceController : MonoBehaviour
 		{
 			if (rollFrameCount % framesPerRoll == 0)
 			{
-				foreach (GameObject die in dice)
+				foreach (DieController die in dice)
 				{
-					die.GetComponent<DieController>().Roll(transform.position);
+					if (!die.Held)
+					{
+						die.Roll(transform.position);
+					}
 				}
 			}
 			rollFrameCount--;
@@ -51,7 +54,6 @@ public class DiceController : MonoBehaviour
 
 	public void RollDice()
 	{
-		heldDice = 0;
 		rollFrameCount = rolls * framesPerRoll;
 	}
 }

@@ -12,6 +12,12 @@ public class DieController : MonoBehaviour
 	public float spinForce;
 	float sinkStop = 0.01f;
 
+	public bool Held
+	{
+		get { return held; }
+		private set { held = value; }
+	}
+
 	Color[] faceColors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan };
 	Quaternion[] faceRotations = { Quaternion.Euler(0, 0, 90), Quaternion.Euler(180, 0, 90), Quaternion.Euler(0, 180, 0), Quaternion.Euler(180, 90, 0), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(90, 0, 0) }; 
 	bool rolled = false;
