@@ -50,7 +50,7 @@ public class DiceController : MonoBehaviour
 				DieController dc = hit.transform.gameObject.GetComponent<DieController>();
 				if (dc.Hold(holdBoxes[heldDice.Count].transform.position))
 				{
-					heldDice.Add(Face.Sword);
+					heldDice.Add(dc.GetUpwardFace());
 				}
 			}
 		}

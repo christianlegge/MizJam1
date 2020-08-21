@@ -21,7 +21,12 @@ public class DieController : MonoBehaviour
 		private set { held = value; }
 	}
 
-	Color[] faceColors = { Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan };
+	Dictionary<Face, Color> faceColors = new Dictionary<Face, Color>()
+	{
+		{ Face.Sword, Color.red },
+		{ Face.Shield, Color.cyan },
+		{ Face.Potion, Color.green },
+	};
 	Quaternion[] faceRotations = { Quaternion.Euler(0, 0, 90), Quaternion.Euler(180, 0, 90), Quaternion.Euler(0, 180, 0), Quaternion.Euler(180, 90, 0), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(90, 0, 0) }; 
 	bool rolled = false;
 	bool stopped = false;
@@ -193,7 +198,7 @@ public class DieController : MonoBehaviour
 			return false;
 		}
 		held = true;
-		upwardFace = GetUpwardFace();
+		upwardFace = GetUpwardFaceNum();
 		holdPosition = new Vector3(pos.x, transform.position.y, pos.z);
 		body.detectCollisions = false;
 		body.useGravity = false;
@@ -203,15 +208,20 @@ public class DieController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Vector3[] directions = { transform.right, -transform.right, transform.up, -transform.up, transform.forward, -transform.forward };
-		Gizmos.DrawLine(transform.position, transform.position + directions[GetUpwardFace()]);
+		Gizmos.DrawLine(transform.position, transform.position + directions[GetUpwardFaceNum()]);
 	}
 
-	private int GetUpwardFace()
+	private int GetUpwardFaceNum()
 	{
 		Vector3[] directions = { transform.right, -transform.right, transform.up, -transform.up, transform.forward, -transform.forward};
 		var angles = directions.Select(x => Mathf.Abs(Vector3.Angle(Vector3.up, x))).ToArray();
 		return Array.IndexOf(angles, angles.Min());
 
+	}
+
+	public Face GetUpwardFace()
+	{
+		return faces[GetUpwardFaceNum()];
 	}
 
 	public void Reset()
