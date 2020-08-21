@@ -48,7 +48,7 @@ public class DiceController : MonoBehaviour
 			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, dieLayer))
 			{
 				DieController dc = hit.transform.gameObject.GetComponent<DieController>();
-				if (dc.Hold(holdBoxes[heldDice.Count].transform.position))
+				if (dc && dc.Hold(holdBoxes[heldDice.Count].transform.position))
 				{
 					heldDice.Add(dc.GetUpwardFace());
 				}
