@@ -15,6 +15,7 @@ public class DiceController : MonoBehaviour
 {
 	public PlayerController player;
 	public EnemyController enemy;
+	public CameraController camera;
 	public DieController[] dice;
 	public int framesPerRoll;
 	public int rolls;
@@ -105,6 +106,7 @@ public class DiceController : MonoBehaviour
 			Debug.Log("hitting player");
 			player.Health -= 5;
 			heldDice.Clear();
+			StartCoroutine(camera.Turn());
 		}
 	}
 }
