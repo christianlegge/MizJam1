@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class HealthBarController : MonoBehaviour
 {
-	public Image bar;
+	public RectTransform bar;
 	public Text text;
 
 	[HideInInspector]
 	public int maxHealth;
 	int health;
+	float maxWidth = 0;
 
 	public int Health
 	{
@@ -22,6 +23,10 @@ public class HealthBarController : MonoBehaviour
 		{
 			health = value;
 			text.text = health.ToString() + "/" + maxHealth.ToString();
+			if (maxWidth > 0)
+			{
+				bar.sizeDelta = new Vector2(maxWidth * health / maxHealth, bar.sizeDelta.y);
+			}
 		}
 	}
 
@@ -29,6 +34,7 @@ public class HealthBarController : MonoBehaviour
     void Start()
     {
 		health = maxHealth;
+		maxWidth = bar.sizeDelta.x;
 		text.text = health.ToString() + "/" + maxHealth.ToString();
 	}
 
