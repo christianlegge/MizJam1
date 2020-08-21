@@ -11,6 +11,8 @@ enum Face
 
 public class DiceController : MonoBehaviour
 {
+	public PlayerController player;
+	public EnemyController enemy;
 	public DieController[] dice;
 	public int framesPerRoll;
 	public int rolls;
@@ -78,10 +80,22 @@ public class DiceController : MonoBehaviour
 			finishedDice = 0;
 			for (int i = 0; i < 5; i++)
 			{
+				if (heldDice[i].Equals(Face.Sword))
+				{
+					Debug.Log("hitting enemy");
+					enemy.Health--;
+				}
+				else if (heldDice[i].Equals(Face.Potion))
+				{
+					player.Health++;
+				}
 				dice[i].Reset();
 				dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
+				
 
 			}
+			Debug.Log("hitting player");
+			player.Health -= 5;
 			heldDice.Clear();
 		}
 	}

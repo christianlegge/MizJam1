@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 	public HealthBarController healthBar;
 	public int maxHealth;
 	int health;
-
 	public int Health
 	{
 		get
@@ -28,11 +26,11 @@ public class PlayerController : MonoBehaviour
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;
 		health = maxHealth;
-    }
+	}
 
     // Update is called once per frame
     void Update()
     {
-		
+        
     }
 }
