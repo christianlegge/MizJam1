@@ -30,7 +30,7 @@ public class DieController : MonoBehaviour
 	Light light;
 	int tilesheetW = 48;
 	int tilesheetH = 22;
-	Mesh mesh;
+	Mesh mesh = null;
 	Rigidbody body;
 	int count = 0;
 	int tile = 0;
@@ -38,12 +38,36 @@ public class DieController : MonoBehaviour
 	Renderer renderer;
 	Material material;
 	Vector3 holdPosition;
+	Face[] faces = new Face[6];
 
 	float x;
 	float z;
 
+	public void SetFace(Face face, int faceIndex)
+	{
+		if (face == Face.Sword)
+		{
+			SetFace(32, 15, faceIndex);
+		}
+		else if (face == Face.Shield)
+		{
+			SetFace(37, 18, faceIndex);
+		}
+		else if (face == Face.Potion)
+		{
+			SetFace(41, 10, faceIndex);
+		}
+
+		faces[faceIndex] = face;
+	}
+
 	void SetFace(int tileX, int tileY, int face)
 	{
+		if (mesh == null)
+		{
+			mesh = GetComponent<MeshFilter>().mesh;
+		}
+
 		Vector2[] tileCoords = {
 			new Vector2((float)tileX / tilesheetW, (float)tileY / tilesheetH),
 			new Vector2((float)(tileX + 1) / tilesheetW, (float)tileY / tilesheetH),
@@ -113,23 +137,6 @@ public class DieController : MonoBehaviour
 		renderer = GetComponentInChildren<Renderer>();
 		material = renderer.material;
 		body = GetComponent<Rigidbody>();
-		var mf = GetComponent<MeshFilter>();
-		mesh = mf.mesh;
-
-		/*SetFace(32, 15, 0);
-		SetFace(32, 15, 1);
-		SetFace(32, 15, 2);
-		SetFace(41, 10, 3);
-		SetFace(37, 18, 4);
-		SetFace(37, 18, 5);*/
-
-		SetFace(41, 4, 0);
-		SetFace(36, 4, 1);
-		SetFace(37, 4, 2);
-		SetFace(38, 4, 3);
-		SetFace(39, 4, 4);
-		SetFace(40, 4, 5);
-
 	}
 
 	private void Update()
@@ -209,7 +216,6 @@ public class DieController : MonoBehaviour
 
 	public void Reset()
 	{
-		Debug.Log("resetting");
 		material.SetColor("FaceColor", Color.white);
 		renderer.material = material;
 		light.color = Color.white;

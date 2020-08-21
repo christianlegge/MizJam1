@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
-enum Face
+public enum Face
 {
 	Sword,
 	Shield,
@@ -26,9 +28,15 @@ public class DiceController : MonoBehaviour
     void Start()
     {
 		heldDice = new List<Face>();
+		System.Random r = new System.Random();
+		Array faceTypes = Enum.GetValues(typeof(Face));
 		foreach (DieController die in dice)
 		{
 			die.diceController = this;
+			for (int i = 0; i < 6; i++)
+			{
+				die.SetFace((Face)faceTypes.GetValue(r.Next(faceTypes.Length)), i);
+			}
 		}
     }
 
