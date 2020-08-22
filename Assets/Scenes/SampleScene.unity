@@ -1844,6 +1844,8 @@ MonoBehaviour:
   mainPos: {fileID: 680439914}
   playerPos: {fileID: 140047097}
   enemyPos: {fileID: 1613088642}
+  player: {fileID: 1479340563}
+  enemy: {fileID: 738188930}
 --- !u!1 &993268915
 GameObject:
   m_ObjectHideFlags: 0

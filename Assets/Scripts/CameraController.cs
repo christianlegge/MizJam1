@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
 	public Transform mainPos;
 	public Transform playerPos;
 	public Transform enemyPos;
+	public PlayerController player;
+	public EnemyController enemy;
 
     // Start is called before the first frame update
     void Start()
@@ -41,9 +43,11 @@ public class CameraController : MonoBehaviour
 	public IEnumerator Turn()
 	{
 		yield return StartCoroutine(MoveToPosition(enemyPos, 20));
-		yield return new WaitForSeconds(1.0f);
+		yield return StartCoroutine(enemy.HitFlash());
+		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(playerPos, 20));
-		yield return new WaitForSeconds(1.0f);
+		yield return StartCoroutine(player.HitFlash());
+		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(mainPos, 20));
 	}
 }

@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
 	public HealthBarController healthBar;
 	public int maxHealth;
 	int health;
+	SpriteRenderer sprite;
 	public int Health
 	{
 		get
@@ -23,6 +24,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		sprite = GetComponent<SpriteRenderer>();
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;
 		health = maxHealth;
@@ -31,6 +33,15 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+
+	}
+
+	public IEnumerator HitFlash()
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			sprite.enabled = !sprite.enabled;
+			yield return new WaitForSeconds(0.05f);
+		}
+	}
 }
