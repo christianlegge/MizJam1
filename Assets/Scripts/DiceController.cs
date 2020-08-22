@@ -119,10 +119,8 @@ public class DiceController : MonoBehaviour
 				{
 					player.Health++;
 				}
-				dice[i].Reset();
-				dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
+				dice[i].GetComponent<Rigidbody>().useGravity = true;
 				
-
 			}
 			Debug.Log("hitting player");
 			player.Health -= 5;
@@ -130,6 +128,15 @@ public class DiceController : MonoBehaviour
 			turnRolls = 3;
 			buttons.ReplaceButtons();
 			StartCoroutine(camera.Turn());
+		}
+	}
+
+	public void ResetDicePosition()
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			dice[i].Reset();
+			dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
 		}
 	}
 }

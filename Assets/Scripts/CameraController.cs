@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
 	public Transform enemyPos;
 	public PlayerController player;
 	public EnemyController enemy;
+	public DiceController dice;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class CameraController : MonoBehaviour
 		yield return StartCoroutine(MoveToPosition(enemyPos, 5));
 		yield return new WaitForSeconds(2.0f);
 		yield return StartCoroutine(MoveToPosition(mainPos, 5));
+		dice.ResetDicePosition();
 	}
 
 	public IEnumerator Turn()
@@ -49,5 +51,6 @@ public class CameraController : MonoBehaviour
 		yield return StartCoroutine(player.HitFlash());
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(mainPos, 20));
+		dice.ResetDicePosition();
 	}
 }

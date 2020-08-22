@@ -2188,6 +2188,7 @@ MonoBehaviour:
   enemyPos: {fileID: 1613088642}
   player: {fileID: 1479340563}
   enemy: {fileID: 738188930}
+  dice: {fileID: 735343281}
 --- !u!1 &993268915
 GameObject:
   m_ObjectHideFlags: 0
