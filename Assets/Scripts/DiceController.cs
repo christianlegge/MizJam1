@@ -17,6 +17,7 @@ public class DiceController : MonoBehaviour
 	public EnemyController enemy;
 	public CameraController camera;
 	public DieController[] dice;
+	public RollButtonController buttons;
 	public int framesPerRoll;
 	public int rolls;
 	public LayerMask dieLayer;
@@ -92,6 +93,7 @@ public class DiceController : MonoBehaviour
 				}
 			}
 			turnRolls--;
+			buttons.RemoveButton();
 			rollFrameCount = rolls * framesPerRoll;
 		}
 		else
@@ -126,6 +128,7 @@ public class DiceController : MonoBehaviour
 			player.Health -= 5;
 			heldDice.Clear();
 			turnRolls = 3;
+			buttons.ReplaceButtons();
 			StartCoroutine(camera.Turn());
 		}
 	}
