@@ -24,6 +24,7 @@ public class DiceController : MonoBehaviour
 	List<Face> heldDice;
 	int finishedDice = 0;
 	int rollFrameCount = 0;
+	int turnRolls = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +79,25 @@ public class DiceController : MonoBehaviour
 
 	public void RollDice()
 	{
-		rollFrameCount = rolls * framesPerRoll;
+		if (turnRolls > 0)
+		{
+			if (turnRolls < 3)
+			{
+				for (int i = 0; i < dice.Length; i++)
+				{
+					if (!dice[i].stopped)
+					{
+						return;
+					}
+				}
+			}
+			turnRolls--;
+			rollFrameCount = rolls * framesPerRoll;
+		}
+		else
+		{
+
+		}
 	}
 
 	public void TryEndTurn()
@@ -106,6 +125,7 @@ public class DiceController : MonoBehaviour
 			Debug.Log("hitting player");
 			player.Health -= 5;
 			heldDice.Clear();
+			turnRolls = 3;
 			StartCoroutine(camera.Turn());
 		}
 	}

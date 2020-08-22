@@ -29,7 +29,7 @@ public class DieController : MonoBehaviour
 	};
 	Quaternion[] faceRotations = { Quaternion.Euler(0, 0, 90), Quaternion.Euler(180, 0, 90), Quaternion.Euler(0, 180, 0), Quaternion.Euler(180, 90, 0), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(90, 0, 0) }; 
 	bool rolled = false;
-	bool stopped = false;
+	public bool stopped = false;
 	bool held = false;
 	bool sink = false;
 	Light light;
