@@ -63,11 +63,11 @@ public class EnemyController : MonoBehaviour
 		System.Random r = new System.Random();
 		sprite = GetComponent<SpriteRenderer>();
 		sprite.sprite = sprites[r.Next(0, sprites.Length)];
-		maxHealth = r.Next(10, 50);
+		maxHealth = r.Next(20, 101);
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;
 		health = maxHealth;
-		attack = r.Next(2, 16);
+		attack = r.Next(5, 21);
 		attackText.text = attack.ToString();
 	}
 
