@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
 	public AudioClip hitsound;
 	public AudioClip healsound;
 	public AudioClip deathsound;
+	public CanvasGroup diedPanel;
+	public Text deadText;
 	int health;
 	[HideInInspector]
 	public int block = 0;
@@ -96,6 +99,24 @@ public class PlayerController : MonoBehaviour
 		if (health == 0)
 		{
 			Debug.Log("dead");
+			StartCoroutine(FadeInDeathScreen());
+			diedPanel.interactable = true;
+			diedPanel.blocksRaycasts = true;
 		}
+	}
+
+	public void RestartGame()
+	{
+		SceneManager.LoadScene(1);
+	}
+
+	private IEnumerator FadeInDeathScreen()
+	{
+		while (diedPanel.alpha < 1)
+		{
+			diedPanel.alpha += Time.deltaTime;
+			yield return null;
+		}
+		diedPanel.alpha = 1;
 	}
 }
