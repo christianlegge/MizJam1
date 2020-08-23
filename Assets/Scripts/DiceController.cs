@@ -146,15 +146,15 @@ public class DiceController : MonoBehaviour
 				if (heldDice[i].Equals(Face.Sword))
 				{
 					Debug.Log("hitting enemy");
-					damage++;
+					damage += 3;
 				}
 				else if (heldDice[i].Equals(Face.Potion))
 				{
-					healing++;
+					healing += 2;
 				}
 				else if (heldDice[i].Equals(Face.Shield))
 				{
-					blocking++;
+					blocking += 2;
 				}
 				dice[i].GetComponent<Rigidbody>().useGravity = true;
 				

@@ -325,7 +325,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Deal 1 damage
+  m_Text: Deal 3 damage
 --- !u!222 &70794560
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -563,7 +563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Heal 1 point
+  m_Text: Heal 2 points
 --- !u!222 &194284843
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3929,7 +3929,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Block 1 damage
+  m_Text: 'Block 2 damage
 
     (Resets at end of fight)'
 --- !u!222 &1162244483
