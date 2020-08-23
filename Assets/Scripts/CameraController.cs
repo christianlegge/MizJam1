@@ -55,7 +55,7 @@ public class CameraController : MonoBehaviour
 		}
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(playerPos, 20));
-		player.block += dice.Blocking;
+		player.Block += dice.Blocking;
 		yield return new WaitForSeconds(0.2f);
 		player.Health += dice.Healing;
 		yield return new WaitForSeconds(0.2f);

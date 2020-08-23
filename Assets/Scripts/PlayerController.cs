@@ -15,8 +15,7 @@ public class PlayerController : MonoBehaviour
 	public CanvasGroup diedPanel;
 	public Text deadText;
 	int health;
-	[HideInInspector]
-	public int block = 0;
+	int block = 0;
 	SpriteRenderer sprite;
 	AudioSource sound;
 	PersistentData playerData;
@@ -53,6 +52,19 @@ public class PlayerController : MonoBehaviour
 			}
 			sound.Play();
 			playerData.health = health;
+		}
+	}
+
+	public int Block
+	{
+		get
+		{
+			return block;
+		}
+		set
+		{
+			block = value;
+			blockText.text = value.ToString();
 		}
 	}
 
