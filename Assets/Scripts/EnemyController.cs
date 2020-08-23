@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class EnemyController : MonoBehaviour
 	public Animator fadeout;
 	public AudioClip hitsound;
 	public AudioClip deathsound;
+	public Text attackText;
 	int maxHealth;
 	int health;
+	int attack;
 	SpriteRenderer sprite;
 	AudioSource sound;
 
@@ -45,6 +48,14 @@ public class EnemyController : MonoBehaviour
 		}
 	}
 
+	public int Attack
+	{
+		get
+		{
+			return attack;
+		}
+	}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +67,8 @@ public class EnemyController : MonoBehaviour
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;
 		health = maxHealth;
+		attack = r.Next(2, 16);
+		attackText.text = attack.ToString();
 	}
 
     // Update is called once per frame

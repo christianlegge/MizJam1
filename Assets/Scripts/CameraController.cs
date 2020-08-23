@@ -59,7 +59,7 @@ public class CameraController : MonoBehaviour
 		yield return new WaitForSeconds(0.2f);
 		player.Health += dice.Healing;
 		yield return new WaitForSeconds(0.2f);
-		player.Hit(5);
+		player.Hit(enemy.Attack);
 		yield return StartCoroutine(player.HitFlash());
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(mainPos, 20));
