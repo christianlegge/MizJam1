@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
 	public HealthBarController healthBar;
 	public Text blockText;
-	public int maxHealth;
+	int maxHealth;
 	public AudioClip hitsound;
 	public AudioClip healsound;
 	public AudioClip deathsound;
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	public int block = 0;
 	SpriteRenderer sprite;
 	AudioSource sound;
+	PersistentData playerData;
 
 	public int Health
 	{
@@ -51,18 +52,20 @@ public class PlayerController : MonoBehaviour
 				sound.clip = deathsound;
 			}
 			sound.Play();
+			playerData.health = health;
 		}
 	}
 
     // Start is called before the first frame update
     void Start()
     {
-		DontDestroyOnLoad(gameObject);
+		playerData = GameObject.FindGameObjectWithTag("PersistentData").GetComponent<PersistentData>();
 		sound = GetComponent<AudioSource>();
 		sprite = GetComponent<SpriteRenderer>();
-		healthBar.maxHealth = maxHealth;
-		healthBar.Health = maxHealth;
-		health = maxHealth;
+		maxHealth = playerData.maxHealth;
+		healthBar.maxHealth = playerData.maxHealth;
+		healthBar.Health = playerData.health;
+		health = playerData.health;
     }
 
     // Update is called once per frame
@@ -107,11 +110,14 @@ public class PlayerController : MonoBehaviour
 
 	public void RestartGame()
 	{
+		playerData.health = maxHealth;
+		playerData.enemiesKilled = 0;
 		SceneManager.LoadScene(1);
 	}
 
 	private IEnumerator FadeInDeathScreen()
 	{
+		deadText.text = "You killed " + playerData.enemiesKilled + " enemies.";
 		while (diedPanel.alpha < 1)
 		{
 			diedPanel.alpha += Time.deltaTime;

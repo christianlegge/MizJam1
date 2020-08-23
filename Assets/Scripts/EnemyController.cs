@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour
 	IEnumerator LoadNextScene()
 	{
 		fadeout.SetTrigger("FadeOut");
+		GameObject.FindGameObjectWithTag("PersistentData").GetComponent<PersistentData>().enemiesKilled++;
 		yield return new WaitForSeconds(1.0f);
 		SceneManager.LoadScene(1);
 	}
