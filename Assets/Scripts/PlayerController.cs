@@ -8,10 +8,14 @@ public class PlayerController : MonoBehaviour
 	public HealthBarController healthBar;
 	public Text blockText;
 	public int maxHealth;
+	public AudioClip hitsound;
+	public AudioClip healsound;
+	public AudioClip deathsound;
 	int health;
 	[HideInInspector]
 	public int block = 0;
 	SpriteRenderer sprite;
+	AudioSource sound;
 
 	public int Health
 	{
@@ -21,6 +25,14 @@ public class PlayerController : MonoBehaviour
 		}
 		set
 		{
+			if (value > health)
+			{
+				sound.clip = healsound;
+			}
+			else
+			{
+				sound.clip = hitsound;
+			}
 			health = value;
 			if (health < 0)
 			{
@@ -31,12 +43,18 @@ public class PlayerController : MonoBehaviour
 				health = maxHealth;
 			}
 			healthBar.Health = health;
+			if (health == 0)
+			{
+				sound.clip = deathsound;
+			}
+			sound.Play();
 		}
 	}
 
     // Start is called before the first frame update
     void Start()
     {
+		sound = GetComponent<AudioSource>();
 		sprite = GetComponent<SpriteRenderer>();
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;

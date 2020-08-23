@@ -10,10 +10,12 @@ public class CameraController : MonoBehaviour
 	public PlayerController player;
 	public EnemyController enemy;
 	public DiceController dice;
+	AudioListener audio;
 
     // Start is called before the first frame update
     void Start()
     {
+		audio = GetComponent<AudioListener>();
 		StartCoroutine(IntroSequence());
 	}
 
@@ -46,9 +48,9 @@ public class CameraController : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.2f);
 		yield return StartCoroutine(MoveToPosition(enemyPos, 20));
-		enemy.Health -= dice.Damage;
 		if (dice.Damage > 0)
 		{
+			enemy.Health -= dice.Damage;
 			yield return StartCoroutine(enemy.HitFlash());
 		}
 		yield return new WaitForSeconds(0.5f);

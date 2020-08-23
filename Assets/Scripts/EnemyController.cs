@@ -8,9 +8,13 @@ public class EnemyController : MonoBehaviour
 	public Sprite[] sprites;
 	public HealthBarController healthBar;
 	public Animator fadeout;
+	public AudioClip hitsound;
+	public AudioClip deathsound;
 	int maxHealth;
 	int health;
 	SpriteRenderer sprite;
+	AudioSource sound;
+
 	public int Health
 	{
 		get
@@ -29,12 +33,22 @@ public class EnemyController : MonoBehaviour
 				health = maxHealth;
 			}
 			healthBar.Health = health;
+			if (health == 0)
+			{
+				sound.clip = deathsound;
+			}
+			else
+			{
+				sound.clip = hitsound;
+			}
+			sound.Play();
 		}
 	}
 
     // Start is called before the first frame update
     void Start()
     {
+		sound = GetComponent<AudioSource>();
 		System.Random r = new System.Random();
 		sprite = GetComponent<SpriteRenderer>();
 		sprite.sprite = sprites[r.Next(0, sprites.Length)];

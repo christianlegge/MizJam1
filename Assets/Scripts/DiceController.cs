@@ -30,6 +30,7 @@ public class DiceController : MonoBehaviour
 	int damage;
 	int healing;
 	int blocking;
+	AudioSource sfx;
 
 	public int Damage
 	{
@@ -58,6 +59,7 @@ public class DiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		sfx = GetComponent<AudioSource>();
 		heldDice = new List<Face>();
 		System.Random r = new System.Random();
 		Array faceTypes = Enum.GetValues(typeof(Face));
@@ -118,7 +120,8 @@ public class DiceController : MonoBehaviour
 					return;
 				}
 			}
-			
+
+			sfx.Play();
 			turnRolls--;
 			buttons.RemoveButton();
 			rollFrameCount = rolls * framesPerRoll;
