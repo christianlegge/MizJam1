@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
@@ -125,6 +126,7 @@ public class DiceController : MonoBehaviour
 				dice[i].GetComponent<Rigidbody>().useGravity = true;
 				
 			}
+			ApplyBonuses();
 			Debug.Log("hitting player");
 			player.Hit(5);
 			heldDice.Clear();
@@ -142,5 +144,31 @@ public class DiceController : MonoBehaviour
 			dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
 			dice[i].stopped = true;
 		}
+	}
+
+	private void ApplyBonuses()
+	{
+		Dictionary<Face, int> facedict = new Dictionary<Face, int>();
+		facedict.Add(Face.Potion, 0);
+		facedict.Add(Face.Shield, 0);
+		facedict.Add(Face.Sword, 0);
+		foreach (Face f in heldDice)
+		{
+			facedict[f]++;
+		}
+		if (facedict.Values.Any(v => v == 5))
+		{
+			player.Health += 10;
+			enemy.Health -= 15;
+		}
+		else if (facedict.Values.Any(v => v == 4))
+		{
+			enemy.Health -= 10;
+		}
+		else if (facedict.Values.Any(v => v == 3))
+		{
+			player.block += 3;
+		}
+		player.Health += facedict.Values.Where(v => v == 2).Count() * 2;
 	}
 }
