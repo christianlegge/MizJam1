@@ -119,11 +119,15 @@ public class DiceController : MonoBehaviour
 				{
 					player.Health++;
 				}
+				else if (heldDice[i].Equals(Face.Shield))
+				{
+					player.block++;
+				}
 				dice[i].GetComponent<Rigidbody>().useGravity = true;
 				
 			}
 			Debug.Log("hitting player");
-			player.Health -= 5;
+			player.Hit(5);
 			heldDice.Clear();
 			turnRolls = 3;
 			buttons.ReplaceButtons();

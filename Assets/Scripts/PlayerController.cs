@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 	public HealthBarController healthBar;
+	public Text blockText;
 	public int maxHealth;
 	int health;
+	[HideInInspector]
+	public int block = 0;
 	SpriteRenderer sprite;
 
 	public int Health
@@ -52,6 +55,28 @@ public class PlayerController : MonoBehaviour
 		{
 			sprite.enabled = !sprite.enabled;
 			yield return new WaitForSeconds(0.05f);
+		}
+	}
+
+	public void Hit(int damage)
+	{
+		if (block > 0)
+		{
+			block -= damage;
+			if (block < 0)
+			{
+				Health += block;
+				block = 0;
+			}
+			blockText.text = block.ToString();
+		}
+		else
+		{
+			Health -= damage;
+		}
+		if (health == 0)
+		{
+			Debug.Log("dead");
 		}
 	}
 }

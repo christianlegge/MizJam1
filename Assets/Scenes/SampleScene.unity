@@ -4200,7 +4200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 221784676}
+  blockText: {fileID: 659618214}
   maxHealth: 50
+  block: 0
 --- !u!212 &1479340564
 SpriteRenderer:
   m_ObjectHideFlags: 0
