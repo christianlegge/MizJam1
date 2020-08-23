@@ -19,7 +19,15 @@ public class PlayerController : MonoBehaviour
 		set
 		{
 			health = value;
-			healthBar.Health = value;
+			if (health < 0)
+			{
+				health = 0;
+			}
+			else if (health > maxHealth)
+			{
+				health = maxHealth;
+			}
+			healthBar.Health = health;
 		}
 	}
 

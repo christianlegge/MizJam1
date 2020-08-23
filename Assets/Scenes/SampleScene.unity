@@ -1552,7 +1552,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 944082942}
-  maxHealth: 20
+  fadeout: {fileID: 1296429814}
+  maxHealth: 2
 --- !u!4 &738188931
 Transform:
   m_ObjectHideFlags: 0
