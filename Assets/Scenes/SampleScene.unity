@@ -1948,9 +1948,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451177882d3fd2e489e24164bbdeb2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: bfeb9a9b29d4564438cb2582cd43c510, type: 3}
+  - {fileID: 21300000, guid: 0caafb09a3935804388c1cbf68c14599, type: 3}
+  - {fileID: 21300000, guid: 3bf610815edd3a049a79a7156e336dcc, type: 3}
+  - {fileID: 21300000, guid: b2c170240e6f3944fb2ebdee43f97865, type: 3}
+  - {fileID: 21300000, guid: ace2764a9457ee64ca4b44824a9ddfab, type: 3}
+  - {fileID: 21300000, guid: f98a9e4edeca11048aca9fbc976b3093, type: 3}
   healthBar: {fileID: 944082942}
   fadeout: {fileID: 1296429814}
-  maxHealth: 2
 --- !u!4 &738188931
 Transform:
   m_ObjectHideFlags: 0

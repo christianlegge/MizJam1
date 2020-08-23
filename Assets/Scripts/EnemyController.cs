@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
+	public Sprite[] sprites;
 	public HealthBarController healthBar;
 	public Animator fadeout;
-	public int maxHealth;
+	int maxHealth;
 	int health;
 	SpriteRenderer sprite;
 	public int Health
@@ -34,7 +35,10 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		System.Random r = new System.Random();
 		sprite = GetComponent<SpriteRenderer>();
+		sprite.sprite = sprites[r.Next(0, sprites.Length)];
+		maxHealth = r.Next(10, 50);
 		healthBar.maxHealth = maxHealth;
 		healthBar.Health = maxHealth;
 		health = maxHealth;
