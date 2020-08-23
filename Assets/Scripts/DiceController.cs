@@ -27,6 +27,33 @@ public class DiceController : MonoBehaviour
 	int finishedDice = 0;
 	int rollFrameCount = 0;
 	int turnRolls = 3;
+	int damage;
+	int healing;
+	int blocking;
+
+	public int Damage
+	{
+		get
+		{
+			return damage;
+		}
+	}
+
+	public int Healing
+	{
+		get
+		{
+			return healing;
+		}
+	}
+
+	public int Blocking
+	{
+		get
+		{
+			return blocking;
+		}
+	}
 
     // Start is called before the first frame update
     void Start()
@@ -107,28 +134,30 @@ public class DiceController : MonoBehaviour
 		finishedDice++;
 		if (finishedDice == 5)
 		{
+			damage = 0;
+			healing = 0;
+			blocking = 0;
 			finishedDice = 0;
 			for (int i = 0; i < 5; i++)
 			{
 				if (heldDice[i].Equals(Face.Sword))
 				{
 					Debug.Log("hitting enemy");
-					enemy.Health--;
+					damage++;
 				}
 				else if (heldDice[i].Equals(Face.Potion))
 				{
-					player.Health++;
+					healing++;
 				}
 				else if (heldDice[i].Equals(Face.Shield))
 				{
-					player.block++;
+					blocking++;
 				}
 				dice[i].GetComponent<Rigidbody>().useGravity = true;
 				
 			}
 			ApplyBonuses();
 			Debug.Log("hitting player");
-			player.Hit(5);
 			heldDice.Clear();
 			turnRolls = 3;
 			buttons.ReplaceButtons();
@@ -158,17 +187,17 @@ public class DiceController : MonoBehaviour
 		}
 		if (facedict.Values.Any(v => v == 5))
 		{
-			player.Health += 10;
-			enemy.Health -= 15;
+			healing += 10;
+			damage += 15;
 		}
 		else if (facedict.Values.Any(v => v == 4))
 		{
-			enemy.Health -= 10;
+			damage += 10;
 		}
 		else if (facedict.Values.Any(v => v == 3))
 		{
-			player.block += 3;
+			blocking += 3;
 		}
-		player.Health += facedict.Values.Where(v => v == 2).Count() * 2;
+		healing += facedict.Values.Where(v => v == 2).Count() * 2;
 	}
 }

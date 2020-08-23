@@ -44,10 +44,20 @@ public class CameraController : MonoBehaviour
 
 	public IEnumerator Turn()
 	{
+		yield return new WaitForSeconds(0.2f);
 		yield return StartCoroutine(MoveToPosition(enemyPos, 20));
-		yield return StartCoroutine(enemy.HitFlash());
+		enemy.Health -= dice.Damage;
+		if (dice.Damage > 0)
+		{
+			yield return StartCoroutine(enemy.HitFlash());
+		}
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(playerPos, 20));
+		player.block += dice.Blocking;
+		yield return new WaitForSeconds(0.2f);
+		player.Health += dice.Healing;
+		yield return new WaitForSeconds(0.2f);
+		player.Hit(5);
 		yield return StartCoroutine(player.HitFlash());
 		yield return new WaitForSeconds(0.5f);
 		yield return StartCoroutine(MoveToPosition(mainPos, 20));
