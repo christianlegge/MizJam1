@@ -187,6 +187,7 @@ public class DieController : MonoBehaviour
 	{
 		Reset();
 		rolled = true;
+		stopped = false;
 		transform.rotation = Quaternion.Euler(UnityEngine.Random.onUnitSphere * 360);
 		transform.position = pos;
 	}

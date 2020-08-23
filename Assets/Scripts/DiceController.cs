@@ -82,16 +82,15 @@ public class DiceController : MonoBehaviour
 	{
 		if (turnRolls > 0)
 		{
-			if (turnRolls < 3)
+
+			for (int i = 0; i < dice.Length; i++)
 			{
-				for (int i = 0; i < dice.Length; i++)
+				if (!dice[i].stopped)
 				{
-					if (!dice[i].stopped)
-					{
-						return;
-					}
+					return;
 				}
 			}
+			
 			turnRolls--;
 			buttons.RemoveButton();
 			rollFrameCount = rolls * framesPerRoll;
@@ -141,6 +140,7 @@ public class DiceController : MonoBehaviour
 		{
 			dice[i].Reset();
 			dice[i].transform.position = transform.position + Vector3.right * (i - 2) * 2 + Vector3.up * 2;
+			dice[i].stopped = true;
 		}
 	}
 }
